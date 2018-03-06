@@ -125,7 +125,16 @@ def parse_data(res):
         y['percent_change_in_impressions'] = None 
 
         data.append(y)
-    return data
+
+    dat = {
+        "time_series_data_by_source" : {
+            "NIELSEN" : {
+            "A2+" : data
+            }
+        }
+    }
+
+    return dat
 
 @app.route('/program/1037/context', methods=['Get'])
 def hello():
