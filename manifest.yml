@@ -1,0 +1,14 @@
+---
+applications:
+  - name: flaskTest
+    memory: 128M
+    buildpack: https://github.com/cloudfoundry/buildpack-python.git
+    instances: 4
+    command: python test_td.py
+    host: microservice-flaskTest
+    env:
+      #NODE_ENV: production
+      http_proxy: http://proxy.inbcu.com:80
+      https_proxy: http://proxy.inbcu.com:80
+
+
