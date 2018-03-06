@@ -127,12 +127,21 @@ def parse_data(res):
         data.append(y)
 
     dat = {
-        "time_series_data_by_source" : {
-            "NIELSEN" : {
-            "A2+" : data
-            }
-        }
-    }
+         "program_id": "1042",
+         "startTime": "20:00:00",
+         "streamId": 1,
+         "streamType": "L",
+         "program": "RIO NBC PRIME",
+         "network": "NBC",
+         "special": False,
+         "retitle": False,
+         "date": "8/20/2016",
+         "time_series_data_by_source" : {
+                    "NIELSEN" : {
+                    "A2+" : data
+                    }
+                }
+          }
 
     return dat
 
