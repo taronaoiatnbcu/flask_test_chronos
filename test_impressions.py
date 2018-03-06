@@ -127,7 +127,7 @@ def parse_data(res):
         data.append(y)
     return data
 
-@app.route('/', methods=['Get'])
+@app.route('/program/1037/context?date=08/05/2016&demos=A18-49&streamid=1&data_sources=NIELSEN&context_count=30', methods=['Get'])
 def hello():
     td_engine = create_engine(cred)
     sel = select([impressions.c.IMPRESSIONS,
