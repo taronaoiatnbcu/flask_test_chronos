@@ -147,8 +147,11 @@ def hello():
     end = time.time()
     print(end - start)
     data = parse_data(res)
+    response = jsonify(data) 
+    response.headers.add('Access-Control-Allow-Origin', '*')
 
-    return jsonify(data) 
+    return response 
+
 
 if __name__ == '__main__':
     # port = int(os.getenv('PORT', 9099))
