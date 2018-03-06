@@ -113,36 +113,41 @@ non_content = Table(
 
 def parse_data(res):
     data = []
+
     for d in res:
         x = dict(d)
-        x['ID'] = int(x['ID'])
-        x['TMS_ID'] = int(x['TMS_ID'])
-        x['PROGRAM_ID'] = int(x['PROGRAM_ID'])
-        x['STREAM_ID'] = int(x['STREAM_ID'])
+        y = {}
 
+        y['impressions'] = int(x['IMPRESSIONS'])
+        y['ratings'] = float(x['RATINGS'])
+        y['second_of_program'] = int(x['SECOND_OF_PROGRAM'])
+        y['time'] = x['IMPRESSIONS_TIME'].strftime('%H:%M:%S')
+        y['percent_change_in_impressions'] = None 
 
-        x['CREATED_AT'] = x['CREATED_AT'].replace(tzinfo=None).strftime('%Y/%m/%d')
-        x['UPDATED_AT'] = x['UPDATED_AT'].replace(tzinfo=None).strftime('%Y/%m/%d')
-        data.append(x)
+        data.append(y)
     return data
 
 @app.route('/', methods=['Get'])
 def hello():
     td_engine = create_engine(cred)
-    sel = non_content.select()\
-                     .where(non_content.c.NETWORK == 'NBC')\
-                     .where(non_content.c.PROGRAM_ID =='15900001')
+    sel = select([impressions.c.IMPRESSIONS,
+                  impressions.c.RATINGS,
+                  impressions.c.SECOND_OF_PROGRAM,
+                  impressions.c.IMPRESSIONS_TIME])\
+        .where(impressions.c.PROGRAM_ID =='15900001')\
+        .where(impressions.c.STREAM_ID =='1')\
+        .where(impressions.c.DEMO =='A2+')\
+        .where(impressions.c.STREAM_TYPE =='LIVE')\
+        .where(impressions.c.IMPRESSIONS_DATE =='2018-01-18')
 
     import time 
     start = time.time()
     with td_engine.connect() as conn:
         res = conn.execute(sel)
-
-    import ipdb
-    ipdb.set_trace()
-    # print(end - start)
-    data = parse_data(res)
     end = time.time()
+    print(end - start)
+    data = parse_data(res)
+
     return jsonify(data) 
 
 if __name__ == '__main__':
