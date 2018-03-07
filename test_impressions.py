@@ -126,8 +126,9 @@ def parse_data(res):
 
         data.append(y)
 
+    data = sorted(data, key=lambda k: k['second_of_program'])
     dat = {
-         "program_id": "1042",
+         "program_id": "1307",
          "startTime": "20:00:00",
          "streamId": 1,
          "streamType": "L",
