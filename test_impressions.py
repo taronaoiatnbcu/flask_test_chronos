@@ -132,7 +132,7 @@ def parse_data(res):
          "startTime": "20:00:00",
          "streamId": 1,
          "streamType": "L",
-         "program": "RIO NBC PRIME",
+         "program": "RIO OPENING CEREMONY",
          "network": "NBC",
          "special": False,
          "retitle": False,
